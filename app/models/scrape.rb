@@ -6,7 +6,7 @@ class Scrape
 		begin
 			doc = Nokogiri::HTML(open(url))
 			doc.css('script').remove 
-			self.title = doc.at("//span[@itemprop = 'name']").text  
+			self.title = doc.at("//h1[@itemprop = 'name']/text()").text.lstrip 
 			self.hotness = doc.at("//span[@itemprop = 'ratingValue']").text.to_i 
 			self.image_url = doc.at_css('#movie-image-section img')['src'] 
 			self.rating = doc.at("//td[@itemprop = 'contentRating']").text 
